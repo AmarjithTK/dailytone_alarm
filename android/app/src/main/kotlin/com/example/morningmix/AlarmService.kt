@@ -78,15 +78,15 @@ class AlarmService : Service() {
             }
         }
 
+        if (type == "silent") {
+            return
+        }
+
         try {
             var soundUri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-            
-            if (type == "playlist" || type == "file") {
-               // In a fully built cyclic setup, we read from DB via a background thread here
-               // For now, defaulting back to system alarm if uri is invalid
-               if (!uriStr.isNullOrEmpty()) {
-                   soundUri = Uri.parse(uriStr)
-               }
+
+            if (!uriStr.isNullOrEmpty()) {
+                soundUri = Uri.parse(uriStr)
             }
 
             mediaPlayer = MediaPlayer().apply {
